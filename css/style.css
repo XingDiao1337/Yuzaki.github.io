@@ -1,0 +1,559 @@
+/* 引入 MiSans 字体 */
+@font-face {
+    font-family: 'MiSans';
+    src: url('../fonts/misans_cn.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MiSans';
+    src: url('../fonts/misans_en.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-007F, U+0080-00FF;
+}
+
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 根变量 */
+:root {
+    --primary-pink: #FF6B9D;
+    --secondary-pink: #FF8FAB;
+    --light-pink: #FFB6C1;
+    --dark-pink: #E91E63;
+    --accent-purple: #9C27B0;
+    --accent-blue: #7C4DFF;
+    --accent-coral: #FF6B6B;
+    --accent-peach: #FFAB91;
+    --text-primary: #2D1B30;
+    --text-secondary: #5A3D5E;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Body 样式 */
+body {
+    font-family: 'MiSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 50%, #FFC3A0 100%);
+}
+
+/* 背景图片 */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+    filter: blur(8px);
+    transform: scale(1.05);
+    animation: backgroundPulse 20s ease-in-out infinite;
+}
+
+@keyframes backgroundPulse {
+    0%, 100% {
+        filter: blur(8px) brightness(1);
+        transform: scale(1.05);
+    }
+    50% {
+        filter: blur(10px) brightness(1.1);
+        transform: scale(1.08);
+    }
+}
+
+/* 全局毛玻璃效果层 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at top, rgba(255, 182, 193, 0.3), transparent),
+                radial-gradient(ellipse at bottom, rgba(255, 107, 107, 0.2), transparent);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 容器 */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+    position: relative;
+}
+
+/* 毛玻璃卡片效果 */
+.glass-effect {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.25) 0%, 
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 182, 193, 0.2) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+        0 8px 32px rgba(233, 30, 99, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* 主卡片 - 扩大容器 */
+.card {
+    padding: 50px;
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+/* 卡片内容布局 */
+.card-content {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+/* 左侧区域 - 头像 */
+.left-section {
+    flex-shrink: 0;
+}
+
+/* 头像包装器 */
+.avatar-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+}
+
+/* 头像 - 静态圆形蒙版 */
+.avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 0 30px rgba(255, 107, 157, 0.3),
+        0 0 60px rgba(156, 39, 176, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.03);
+    box-shadow: 
+        0 0 40px rgba(255, 107, 157, 0.4),
+        0 0 80px rgba(156, 39, 176, 0.3);
+}
+
+/* 右侧区域 - 信息 */
+.right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 信息区域 */
+.info {
+    margin-bottom: 25px;
+}
+
+/* 名字 */
+.name {
+    font-size: 3.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, 
+        var(--primary-pink) 0%, 
+        var(--accent-purple) 50%, 
+        var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    background-size: 200% 200%;
+    animation: nameShimmer 3s ease-in-out infinite;
+}
+
+@keyframes nameShimmer {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* 别名 */
+.alias {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.alias:hover {
+    color: var(--accent-purple);
+}
+
+/* 技能标签 */
+.skills {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.skill-tag {
+    padding: 10px 24px;
+    background: linear-gradient(135deg, 
+        rgba(255, 107, 157, 0.2) 0%, 
+        rgba(156, 39, 176, 0.2) 100%);
+    border: 1px solid rgba(255, 107, 157, 0.3);
+    border-radius: 25px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.skill-tag:hover::before {
+    left: 100%;
+}
+
+.skill-tag:hover {
+    background: linear-gradient(135deg, 
+        rgba(255, 107, 157, 0.4) 0%, 
+        rgba(156, 39, 176, 0.4) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+}
+
+/* 描述 */
+.description {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* 按钮容器 */
+.buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* 按钮通用样式 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: none;
+}
+
+.btn .icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+/* GitHub 按钮 */
+.btn-github {
+    background: linear-gradient(135deg, #24292e 0%, #4a4a4a 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(36, 41, 46, 0.3);
+}
+
+.btn-github::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-github:hover::before {
+    left: 100%;
+}
+
+.btn-github:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(36, 41, 46, 0.4);
+}
+
+.btn-github:hover .icon {
+    transform: rotate(360deg);
+}
+
+/* BiliBili 按钮 */
+.btn-bilibili {
+    background: linear-gradient(135deg, #FB7299 0%, #E91E63 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(251, 114, 153, 0.3);
+}
+
+.btn-bilibili::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-bilibili:hover::before {
+    left: 100%;
+}
+
+.btn-bilibili:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(251, 114, 153, 0.5);
+}
+
+.btn-bilibili:hover .icon {
+    transform: scale(1.2);
+}
+
+/* 浮动形状 */
+.floating-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    filter: blur(40px);
+    animation: floatShape 15s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, var(--primary-pink), var(--accent-purple));
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-coral));
+    top: 50%;
+    right: -80px;
+    animation-delay: -3s;
+}
+
+.shape-3 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, var(--accent-peach), var(--light-pink));
+    bottom: -50px;
+    left: 30%;
+    animation-delay: -6s;
+}
+
+.shape-4 {
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, var(--secondary-pink), var(--accent-blue));
+    top: 20%;
+    left: 10%;
+    animation-delay: -9s;
+}
+
+.shape-5 {
+    width: 220px;
+    height: 220px;
+    background: linear-gradient(135deg, var(--accent-coral), var(--primary-pink));
+    bottom: 20%;
+    right: 15%;
+    animation-delay: -12s;
+}
+
+@keyframes floatShape {
+    0%, 100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    25% {
+        transform: translate(50px, 50px) scale(1.1) rotate(90deg);
+    }
+    50% {
+        transform: translate(0, 100px) scale(1) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50px, 50px) scale(0.9) rotate(270deg);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 900px) {
+    .card {
+        padding: 40px 30px;
+    }
+    
+    .card-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .left-section {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .right-section {
+        align-items: center;
+    }
+    
+    .name {
+        font-size: 2.5rem;
+    }
+    
+    .skills {
+        justify-content: center;
+    }
+    
+    .buttons {
+        justify-content: center;
+    }
+    
+    .avatar-wrapper {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .avatar {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .card {
+        padding: 30px 20px;
+    }
+    
+    .name {
+        font-size: 2rem;
+    }
+    
+    .buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .avatar-wrapper {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .avatar {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 182, 193, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary-pink), var(--accent-purple));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--dark-pink), var(--accent-purple));
+}
+
+/* 选择文本样式 */
+::selection {
+    background: rgba(255, 107, 157, 0.3);
+    color: var(--text-primary);
+}
