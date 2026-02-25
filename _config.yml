@@ -1,0 +1,47 @@
+# 站点配置
+title: Yuzaki
+description: Yuzaki's Personal Profile
+author: Yuzaki
+email: 
+
+# 站点URL（部署时修改）
+url: ""
+baseurl: ""
+
+# 社交链接
+github: XingDiao1337
+bilibili: 513309823
+
+# 构建设置
+markdown: kramdown
+highlighter: rouge
+
+# 插件
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# 排除文件
+exclude:
+  - node_modules
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+# 包含文件
+include:
+  - _pages
+
+# 默认值
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# 时区
+timezone: Asia/Shanghai
+
+# 语言
+lang: zh-CN
