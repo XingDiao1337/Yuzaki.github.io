@@ -8,6 +8,10 @@ email:
 url: ""
 baseurl: ""
 
+# GitHub Pages 配置
+source: .
+destination: ./_site
+
 # 社交链接
 github: XingDiao1337
 bilibili: 513309823
@@ -15,6 +19,9 @@ bilibili: 513309823
 # 构建设置
 markdown: kramdown
 highlighter: rouge
+
+# 主题（使用 GitHub Pages 支持的主题）
+theme: jekyll-theme-primer
 
 # 插件
 plugins:
@@ -27,10 +34,16 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - _config.yml
+  - .git
 
 # 包含文件
 include:
-  - _pages
+  - css
+  - js
+  - img
+  - fonts
+  - neteasy
 
 # 默认值
 defaults:
